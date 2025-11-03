@@ -2,9 +2,9 @@ name: Build and Test
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   build:
@@ -13,62 +13,60 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        go-version: ['1.21', '1.22']
+        go-version: ["1.21", "1.22"]
 
     steps:
-    - name: Checkout код
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Установка Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: ${{ matrix.go-version }}
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.go-version }}
 
-    - name: Проверка зависимостей
-      run: |
-        go mod download
-        go mod verify
+      - name: Verify dependencies
+        run: |
+          go mod download
+          go mod verify
 
-    - name: Сборка
-      run: go build -v ./...
+      - name: Build
+        run: go build -v ./...
 
-    - name: Запуск тестов
-      run: go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
+      - name: Run tests
+        run: go test -v -race -coverprofile=coverage.txt -covermode=atomic ./...
 
-    - name: Upload coverage
-      if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.22'
-      uses: codecov/codecov-action@v3
-      with:
-        files: ./coverage.txt
-        flags: unittests
+      - name: Upload coverage
+        if: matrix.os == 'ubuntu-latest' && matrix.go-version == '1.22'
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.txt
+          flags: unittests
 
   lint:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout код
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Установка Go
-      uses: actions/setup-go@v4
-      with:
-        go-version: '1.22'
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.22"
 
-    - name: golangci-lint
-      uses: golangci/golangci-lint-action@v3
-      with:
-        version: latest
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v3
+        with:
+          version: latest
 
   security:
     name: Security Scan
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout код
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Запуск Gosec
-      uses: securego/gosec@master
-      with:
-        args: './...'
-
-
+      - name: Run Gosec
+        uses: securego/gosec@master
+        with:
+          args: "./..."

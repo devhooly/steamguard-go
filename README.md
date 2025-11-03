@@ -160,21 +160,58 @@ steamguard-fork/
 
 ## 🛠️ Development
 
-### Dependencies
+This project uses [Task](https://taskfile.dev/) for build automation.
+
+### Installing Task
 
 ```bash
+# Linux/macOS
+sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b /usr/local/bin
+
+# macOS (Homebrew)
+brew install go-task/tap/go-task
+
+# Windows (Chocolatey)
+choco install go-task
+
+# Go install
+go install github.com/go-task/task/v3/cmd/task@latest
+```
+
+### Available commands
+
+List all available commands:
+
+```bash
+task --list-all
+```
+
+Main commands:
+
+```bash
+task build       # Build binary
+task build-all   # Build for all platforms
+task test        # Run tests
+task run         # Build and run
+task clean       # Clean built files
+task install     # Install to system
+task fmt         # Format code
+task lint        # Lint code
+task dev         # Development mode with auto-reload
+```
+
+### Manual build
+
+If you prefer not to use Task:
+
+```bash
+# Install dependencies
 go mod download
-```
 
-### Build
-
-```bash
+# Build
 go build -o steamguard
-```
 
-### Run
-
-```bash
+# Run
 ./steamguard --help
 ```
 

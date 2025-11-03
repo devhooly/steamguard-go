@@ -1,0 +1,113 @@
+version: "3"
+
+vars:
+  BINARY_NAME: steamguard
+  MAIN_PATH: .
+  INSTALL_PATH: /usr/local/bin
+
+tasks:
+  default:
+    desc: Show all available commands
+    cmds:
+      - task --list-all
+    silent: true
+
+  build:
+    desc: Build binary
+    cmds:
+      - echo "🔨 Building {{.BINARY_NAME}}..."
+      - go build -o {{.BINARY_NAME}} {{.MAIN_PATH}}
+      - echo "✓ Done!"
+
+  build-all:
+    desc: Build for all platforms
+    cmds:
+      - echo "🔨 Building for all platforms..."
+      - mkdir -p dist
+      - GOOS=linux GOARCH=amd64 go build -o dist/{{.BINARY_NAME}}-linux-amd64 {{.MAIN_PATH}}
+      - GOOS=linux GOARCH=arm64 go build -o dist/{{.BINARY_NAME}}-linux-arm64 {{.MAIN_PATH}}
+      - GOOS=windows GOARCH=amd64 go build -o dist/{{.BINARY_NAME}}-windows-amd64.exe {{.MAIN_PATH}}
+      - GOOS=darwin GOARCH=amd64 go build -o dist/{{.BINARY_NAME}}-darwin-amd64 {{.MAIN_PATH}}
+      - GOOS=darwin GOARCH=arm64 go build -o dist/{{.BINARY_NAME}}-darwin-arm64 {{.MAIN_PATH}}
+      - echo "✓ Done! Files in dist/"
+
+  clean:
+    desc: Clean built files
+    cmds:
+      - echo "🧹 Cleaning..."
+      - rm -f {{.BINARY_NAME}}
+      - rm -rf dist/
+      - go clean
+      - echo "✓ Cleaned"
+
+  install:
+    desc: Install to system
+    deps: [build]
+    cmds:
+      - echo "📦 Installing {{.BINARY_NAME}} to {{.INSTALL_PATH}}..."
+      - sudo cp {{.BINARY_NAME}} {{.INSTALL_PATH}}/
+      - echo "✓ Installed!"
+
+  uninstall:
+    desc: Uninstall from system
+    cmds:
+      - echo "🗑️  Removing {{.BINARY_NAME}}..."
+      - sudo rm -f {{.INSTALL_PATH}}/{{.BINARY_NAME}}
+      - echo "✓ Removed"
+
+  test:
+    desc: Run tests
+    cmds:
+      - echo "🧪 Running tests..."
+      - go test -v ./...
+
+  run:
+    desc: Build and run
+    deps: [build]
+    cmds:
+      - echo "🚀 Running {{.BINARY_NAME}}..."
+      - ./{{.BINARY_NAME}}
+
+  deps:
+    desc: Install dependencies
+    cmds:
+      - echo "📥 Downloading dependencies..."
+      - go mod download
+      - go mod verify
+      - echo "✓ Done!"
+
+  tidy:
+    desc: Tidy go.mod
+    cmds:
+      - echo "🧹 Tidying dependencies..."
+      - go mod tidy
+      - echo "✓ Done!"
+
+  fmt:
+    desc: Format code
+    cmds:
+      - echo "💅 Formatting code..."
+      - go fmt ./...
+      - echo "✓ Done!"
+
+  lint:
+    desc: Lint code
+    cmds:
+      - echo "🔍 Linting code..."
+      - |
+        if ! command -v golangci-lint &> /dev/null; then
+          echo "⚠️  Install golangci-lint: https://golangci-lint.run/usage/install/"
+          exit 1
+        fi
+      - golangci-lint run
+      - echo "✓ Linting complete"
+
+  dev:
+    desc: Development mode with auto-reload
+    cmds:
+      - |
+        if ! command -v air &> /dev/null; then
+          echo "⚠️  Install air: go install github.com/cosmtrek/air@latest"
+          exit 1
+        fi
+      - air
