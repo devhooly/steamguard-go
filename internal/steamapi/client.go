@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/devhooly/steamguard-fork/internal/manifest"
+	"github.com/devhooly/steamguard-go/internal/manifest"
 )
 
 const steamLoginBase = "https://login.steampowered.com"

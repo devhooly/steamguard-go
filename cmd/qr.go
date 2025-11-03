@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/devhooly/steamguard-fork/internal/qrcode"
+	"github.com/devhooly/steamguard-go/internal/qrcode"
 	"github.com/spf13/cobra"
 )
 

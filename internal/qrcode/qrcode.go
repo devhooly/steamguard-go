@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/devhooly/steamguard-fork/internal/manifest"
+	"github.com/devhooly/steamguard-go/internal/manifest"
 	qr "github.com/skip2/go-qrcode"
 )
 

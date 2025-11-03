@@ -1,4 +1,4 @@
-module github.com/devhooly/steamguard-fork
+module github.com/devhooly/steamguard-go
 
 go 1.21
 

@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/devhooly/steamguard-fork/internal/config"
-	"github.com/devhooly/steamguard-fork/internal/manifest"
+	"github.com/devhooly/steamguard-go/internal/config"
+	"github.com/devhooly/steamguard-go/internal/manifest"
 	"github.com/spf13/cobra"
 )
 

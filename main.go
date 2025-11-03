@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/devhooly/steamguard-fork/cmd"
+	"github.com/devhooly/steamguard-go/cmd"
 )
 
 func main() {

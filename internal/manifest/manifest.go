@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"sync"
 
-	"github.com/devhooly/steamguard-fork/internal/crypto"
+	"github.com/devhooly/steamguard-go/internal/crypto"
 )
 
 // Manifest represents the manifest.json file

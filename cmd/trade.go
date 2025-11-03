@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/devhooly/steamguard-fork/internal/steamapi"
+	"github.com/devhooly/steamguard-go/internal/steamapi"
 	"github.com/spf13/cobra"
 )
 

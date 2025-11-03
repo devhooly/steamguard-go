@@ -3,7 +3,7 @@ package manifest
 import (
 	"fmt"
 
-	"github.com/devhooly/steamguard-fork/internal/steamguard"
+	"github.com/devhooly/steamguard-go/internal/steamguard"
 )
 
 // SteamGuardAccount represents a Steam Guard account (SDA format)
