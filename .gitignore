@@ -1,0 +1,46 @@
+# Бинарные файлы
+steamguard
+steamguard.exe
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Тестовые бинарники
+*.test
+
+# Output of the go coverage tool
+*.out
+
+# Go workspace file
+go.work
+
+# Зависимости
+vendor/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Конфиденциальные данные - НИКОГДА НЕ КОММИТИТЬ!
+maFiles/
+*.maFile
+manifest.json
+
+# Temporary files
+tmp/
+temp/
+
+# Build artifacts
+dist/
+build/
+bin/
+
+
